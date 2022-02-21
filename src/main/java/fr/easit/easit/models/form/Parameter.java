@@ -1,15 +1,22 @@
 package fr.easit.easit.models.form;
 
 import fr.easit.easit.models.service.ServiceSubType;
-import fr.easit.easit.models.user.ForgotPassword;
-import fr.easit.easit.models.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "parameter")
 public class Parameter implements Serializable {
+
+    public Parameter(){}
+    public Parameter(String name, ServiceSubType serviceSubType, ParameterType parameterType){
+        this.setName(name);
+        this.setServiceSubType(serviceSubType);
+        this.setParameterType(parameterType);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -31,14 +38,17 @@ public class Parameter implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "type_parameter_id")
-    private TypeParameter typeParameter;
-    public TypeParameter getTypeParameter() {
-        return typeParameter;
+    @JoinColumn(name = "type_parameter_id", nullable = false)
+    private ParameterType parameterType;
+    public ParameterType getParameterType() {
+        return parameterType;
+    }
+    public void setParameterType(ParameterType parameterType) {
+        this.parameterType = parameterType;
     }
 
     @ManyToOne
-    @JoinColumn(name= "sub_type_id")
+    @JoinColumn(name= "sub_type_id", nullable = false)
     private ServiceSubType serviceSubType;
     public ServiceSubType getServiceSubType() {
         return serviceSubType;
@@ -47,10 +57,8 @@ public class Parameter implements Serializable {
         this.serviceSubType = serviceSubType;
     }
 
-    public void setTypeParameter(TypeParameter typeParameter) {
-        this.typeParameter = typeParameter;
-    }
-
+    @Column(length = 50, nullable = false)
+    @Size(min=1, max=50)
     private String name;
     public String getName() {
         return name;

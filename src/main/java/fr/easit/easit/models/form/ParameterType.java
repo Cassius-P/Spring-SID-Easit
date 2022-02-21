@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "type_parameter")
-public class TypeParameter implements Serializable {
+public class ParameterType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class TypeParameter implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "typeParameter")
+    @OneToMany(mappedBy = "parameterType")
     private List<Parameter> parameters;
     public List<Parameter> getParameters() {
         return parameters;
@@ -36,7 +36,7 @@ public class TypeParameter implements Serializable {
         this.parameters = parameters;
     }
 
-    @Column(name = "is_multiple_value")
+    @Column(name = "is_multiple_value", nullable = false)
     private Boolean isMultipleValue;
     public Boolean getMultipleValue() {
         return isMultipleValue;

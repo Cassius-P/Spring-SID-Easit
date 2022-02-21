@@ -6,4 +6,5 @@ import org.hibernate.annotations.TypeDef;
 import org.json.JSONObject;
 @TypeDef(name = "json", typeClass = JsonType.class)
 public class ServiceSettings {
+
 }

@@ -1,6 +1,7 @@
 package fr.easit.easit.models.service;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import fr.easit.easit.models.form.Parameter;
@@ -8,6 +9,13 @@ import fr.easit.easit.models.form.Parameter;
 @Entity
 @Table(name = "service_sub_type")
 public class ServiceSubType implements Serializable {
+
+    public ServiceSubType(){}
+    public ServiceSubType(String name, ServiceType serviceType){
+        this.setName(name);
+        this.setServiceType(serviceType);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,7 +28,7 @@ public class ServiceSubType implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "type_id", nullable = false)
     private ServiceType serviceType;
     public ServiceType getServiceType() {
         return serviceType;
@@ -47,5 +55,15 @@ public class ServiceSubType implements Serializable {
         List<Parameter> parameters = getParameters();
         parameters.add(parameter);
         setParameters(parameters);
+    }
+
+    @Column(length = 75, nullable = false)
+    @Size(min =1, max = 75)
+    private String name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }

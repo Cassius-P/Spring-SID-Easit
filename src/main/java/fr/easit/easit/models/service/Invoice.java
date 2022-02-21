@@ -7,6 +7,14 @@ import java.util.Date;
 @Entity
 @Table(name = "invoice")
 public class Invoice implements Serializable {
+
+    public Invoice(){}
+    public Invoice(Date date, String path, Service service){
+        this.setDate(date);
+        this.setPath(path);
+        this.setService(service);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,7 +27,7 @@ public class Invoice implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name="service_uuid")
+    @JoinColumn(name="service_uuid", nullable = false)
     private Service service;
     public Service getService() {
         return service;
@@ -28,6 +36,7 @@ public class Invoice implements Serializable {
         this.service = service;
     }
 
+    @Column(nullable = false)
     private Date date;
     public Date getDate() {
         return date;
@@ -36,6 +45,7 @@ public class Invoice implements Serializable {
         this.date = date;
     }
 
+    @Column(nullable = false)
     private String path;
     public String getPath() {
         return path;

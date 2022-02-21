@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -13,9 +14,15 @@ import java.util.List;
 @Table(name = "class")
 public class Class {
 
+    public Class(){}
+    public Class(String name, School school){
+        this.setName(name);
+        this.setSchool(school);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Integer id;
     public Integer getId() {
         return id;
@@ -24,6 +31,8 @@ public class Class {
         this.id = id;
     }
 
+    @Column(length = 50,nullable = false)
+    @Size(min = 1, max =50)
     private String name;
     public String getName() {
         return name;

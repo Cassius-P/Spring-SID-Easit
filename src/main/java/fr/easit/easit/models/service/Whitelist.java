@@ -1,11 +1,19 @@
 package fr.easit.easit.models.service;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "whitelist")
 public class Whitelist implements Serializable {
+
+    public Whitelist(){}
+    public Whitelist(String authorizedIP, Service service){
+        this.setAuthorizedIP(authorizedIP);
+        this.setService(service);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -18,7 +26,7 @@ public class Whitelist implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name="service_uuid")
+    @JoinColumn(name="service_uuid", nullable = false)
     private Service service;
     public Service getService() {
         return service;
@@ -26,7 +34,9 @@ public class Whitelist implements Serializable {
     public void setService(Service service) {
         this.service = service;
     }
-    @Column(name = "authorized_ip")
+
+    @Column(length = 15, name = "authorized_ip", nullable = false)
+    @Size(min = 7, max =15)
     private String authorizedIP;
     public String getAuthorizedIP() {
         return authorizedIP;
