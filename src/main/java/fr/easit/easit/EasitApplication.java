@@ -19,16 +19,4 @@ public class EasitApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EasitApplication.class, args);
 	}
-
-	/*@Bean
-	public TransactionManager transactionManager(EntityManagerFactory emf) {
-		return new JpaTransactionManager(emf);
-	}
-
-	@Bean
-	public LocalEntityManagerFactoryBean entityManagerFactory() {
-		LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-		factoryBean.setPersistenceUnitName("database");
-		return factoryBean;
-	}*/
 }
